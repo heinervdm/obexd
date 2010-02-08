@@ -125,6 +125,10 @@ if (test "${phonebook_driver}" = "ebook"); then
 	AC_SUBST(GTHREAD_LIBS)
 fi
 
+if (test "${phonebook_driver}" = "fso"); then
+	PKG_CHECK_MODULES(FRAMEWORKD_GLIB, libframeworkd-glib)
+fi
+
 AC_SUBST([PHONEBOOK_DRIVER], [phonebook-${phonebook_driver}.c])
 
 telephony_driver=dummy
