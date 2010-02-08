@@ -58,7 +58,7 @@ src_obexd_SOURCES = $(gdbus_sources) $(builtin_sources) \
 
 src_obexd_LDADD = @DBUS_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@ \
 					@EBOOK_LIBS@ @OPENOBEX_LIBS@ \
-					@BLUEZ_LIBS@ -ldl
+					@BLUEZ_LIBS@ @FRAMEWORKD_GLIB_LIBS@ -ldl
 
 src_obexd_LDFLAGS = -Wl,--export-dynamic
 
@@ -101,7 +101,8 @@ service_DATA = $(service_in_files:.service.in=.service)
 
 AM_CFLAGS = @OPENOBEX_CFLAGS@ @BLUEZ_CFLAGS@ @EBOOK_CFLAGS@ \
 			@GTHREAD_CFLAGS@ @GLIB_CFLAGS@ @DBUS_CFLAGS@ \
-			-DOBEX_PLUGIN_BUILTIN -DPLUGINDIR=\""$(plugindir)"\"
+			-DOBEX_PLUGIN_BUILTIN -DPLUGINDIR=\""$(plugindir)"\" \
+			@FRAMEWORKD_GLIB_CFLAGS@
 
 INCLUDES = -I$(builddir)/src -I$(srcdir)/src -I$(srcdir)/plugins \
 				-I$(srcdir)/gdbus -I$(srcdir)/gwobex
@@ -111,7 +112,8 @@ CLEANFILES = $(service_DATA) $(builtin_files)
 EXTRA_DIST = src/genbuiltin $(doc_files) $(test_files) src/obex.conf \
 			src/obexd.service.in client/obex-client.service.in \
 			plugins/phonebook-dummy.c plugins/phonebook-ebook.c \
-			plugins/telephony-dummy.c
+			plugins/telephony-dummy.c plugins/telephony-fso.c \
+			plugins/phonebook-fso.c
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-client --enable-server
 
