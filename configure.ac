@@ -132,6 +132,10 @@ AC_ARG_WITH(telephony, AC_HELP_STRING([--with-telephony=DRIVER], [select telepho
 	telephony_driver=${withval}
 ])
 
+if (test "${telephony_driver}" = "fso"); then
+	PKG_CHECK_MODULES(FRAMEWORKD_GLIB, libframeworkd-glib)
+fi
+
 AC_SUBST([TELEPHONY_DRIVER], [telephony-${telephony_driver}.c])
 
 AC_ARG_ENABLE(server, AC_HELP_STRING([--disable-server],
